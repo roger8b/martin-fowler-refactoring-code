@@ -1,0 +1,16 @@
+{
+  "name": "@rogermartins/martin-fowler-refactoring-code",
+  "version": "1.0.0",
+  "description": "Martin Fowler Refactoring Study",
+  "main": "index.js",
+  "scripts": {
+    "cap1": "node cap_1/index.js ",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github-roger:roger8b/martin-fowler-refactoring-code"
+  },
+  "author": "Roger <roger.8b@gmail.com>",
+  "license": "ISC"
+}
