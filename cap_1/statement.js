@@ -1,6 +1,5 @@
 function statement(invoice, plays) {
     let totalAmount = 0;
-    let volumeCredits = 0;
     let result = `Statement for ${invoice.customer}\n`;
 
     for (const perf of invoice.performances) {
@@ -8,7 +7,8 @@ function statement(invoice, plays) {
         result += `  ${playFor(perf).name}: ${usd(amountFor(perf) / 100)} (${perf.audience} seats)\n`;
         totalAmount += amountFor(perf)
     }
-
+    
+    let volumeCredits = 0;
     for (const perf of invoice.performances) {
         volumeCredits = volumeCreditsFor(perf)
     }
