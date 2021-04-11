@@ -6,13 +6,18 @@ function statement(invoice, plays) {
 
     function enrichPerformances(aPerformance) {
         const result = Object.assign({}, aPerformance);
-        return result
+        result.play = playFor(result);
+        return result;
+
+        function playFor(perf) {
+            return plays[perf.playID];
+        }
     }
 
     function renderPlainText(data, invoice, plays) {
         let result = `Statement for ${data.customer}\n`;
         for (const perf of data.performances) {
-            result += `  ${playFor(perf).name}: ${usd(amountFor(perf) / 100)} (${perf.audience} seats)\n`;
+            result += `  ${perf.play.name}: ${usd(amountFor(perf) / 100)} (${perf.audience} seats)\n`;
         }
         result += `Amount owed is ${usd(totalAmount() / 100)}\n`;
         result += `You earned ${totalVolumeCredits()} credits \n`;
@@ -45,18 +50,14 @@ function statement(invoice, plays) {
         function volumeCreditsFor(aPerformance) {
             let result = 0;
             result += Math.max(aPerformance.audience - 30, 0);
-            if ("comedy" == playFor(aPerformance).type) result += Math.floor(aPerformance.audience / 5);
+            if ("comedy" == aPerformance.play.type) result += Math.floor(aPerformance.audience / 5);
             return result
-        }
-
-        function playFor(perf) {
-            return plays[perf.playID];
         }
 
         function amountFor(aPerformance) {
             let result = 0;
 
-            switch (playFor(aPerformance).type) {
+            switch (aPerformance.play.type) {
                 case "tragedy":
                     result = 40000;
                     if (aPerformance.audience > 30) {
